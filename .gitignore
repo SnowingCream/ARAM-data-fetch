@@ -1,0 +1,7 @@
+match_id_filter.txt
+db_setting.txt
+api_key.txt
+test.ipynb
+
+.ipynb_checkpoints/
+__pycache__/
