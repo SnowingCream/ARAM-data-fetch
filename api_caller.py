@@ -143,6 +143,7 @@ class APICaller:
     Behavior: get a player account information from summoner ID
         - used to get a puuid of the user in a game prior to 13.23 patch(riot tag update)
         - then use puuid to find the current name and tag (Api function call 2).
+        - since decided to not collect data before 14.1, this function won't be used.
     Parameter: summnor ID (can be found from Api can function 4)
     Return: data(json) containing 6 fields: id, accountId, puuid, profileIconId, revisionDate, summerLevel
         - most likely used to fetch puuid 
@@ -150,6 +151,21 @@ class APICaller:
     
     def get_summoner_from_summoner_id(self, summoner_id):
         url = F"{self.region_url}/lol/summoner/v4/summoners/{summoner_id}?api_key={self.api_key}"
+        data = self.fetch(url)
+        return data
+
+
+    '''
+    Api call function 7
+    Behavior: get a player account information from puuid
+        - same behavior has Api function 6, just different input (puuid instead of summoner ID)
+        - added to fetch profileIconId using puuid, which is a newly added DB. 
+    Parameter: puuid
+    Return: data(json) containing 6 fields: id, accountId, puuid, profileIconId, revisionDate, summerLevel
+    '''
+    
+    def get_summoner_from_puuid(self, puuid):
+        url = F"{self.region_url}/lol/summoner/v4/summoners/by-puuid/{puuid}?api_key={self.api_key}"
         data = self.fetch(url)
         return data
 
